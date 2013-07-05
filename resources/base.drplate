@@ -1,0 +1,41 @@
+regular text
+should be left alone
+
+macros, however {% (str "should be expanded") %}
+macros, {% (str "however should be") %} expanded
+{% (str "macros, however") %} should be expanded
+
+this is a {% (str "multi-line "
+                  "macro test") %}
+
+this is {% (str "a multi-macro") %} per {% (str "single-line") %} test
+this is {% (str "a multi-macro") %} {% (str "per single-line") %} test
+
+{% (def ^:dynamic global-var 1) %}
+{% (defn function []
+     (str "Inner function working")) %}
+
+inner definition test : {% (if (= 1 global-var)
+                             (str "Global var definition working, "
+                               (function))) %}
+
+netsted macros {% (str "should {% (str \"not be\") %} expanded") %} when
+only one pass is done
+
+test var retrieval, version : {% (str version)) %}
+
+test insertion : {% (str version) %}
+test insertion : {% (str test) %}
+test insertion : {% (str test2) %}
+test insertion int : {% (loop [n 0 buff "\n" ]
+                      (if (= test-int n)
+                        buff
+                        (recur (inc n) (str buff "\ttest int " n "\n")))) %}
+test insertion bool1 : {% (if test-bool1
+                      "test-bool1!"
+                      "fail") %}
+test insertion bool2 : {% (if test-bool2
+                      "fail"
+                      "success") %}
+
+
